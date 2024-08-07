@@ -1,0 +1,28 @@
+@import '../variables/colors.scss';
+
+.singleTodo {
+    padding: 16px 20px;
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    &__wrapperTask {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+    }
+
+    &__icon {
+        &__check {
+            display: block;
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+        }
+
+        &__remove {
+            cursor: pointer;
+        }
+    }
+}

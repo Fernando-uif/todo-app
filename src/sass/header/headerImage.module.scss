@@ -1,6 +1,12 @@
-.header{
-    background-image: url('/public/assets/background/Bitmap.jpg');
+@import '../variables/colors.scss';
+
+.header {
     height: 300px;
     background-repeat: no-repeat;
-    
+    background-image:
+        linear-gradient(225deg, rgb(85, 150, 255, .7) 0%, rgb(172, 45, 235, .6) 100%),
+        url('/public/assets/background/Bitmap.jpg');
+    background-size: cover;
+
+   
 }
