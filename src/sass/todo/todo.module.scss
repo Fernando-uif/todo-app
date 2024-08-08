@@ -111,5 +111,8 @@
                 color: $selected-text;
             }
         }
+        &--active {
+            color:$selected-text;
+        }
     }
 }

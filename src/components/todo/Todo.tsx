@@ -8,7 +8,11 @@ import { useTodosStore } from "../../store/todos/todos-store";
 export const Todo = () => {
   const setTodo = useTodosStore((state) => state.setTodo);
   const allTodos = useTodosStore((state) => state.getTodos());
+  const setStatus = useTodosStore((state) => state.setStatus);
+  const activeStatus = useTodosStore((state) => state.getStatus());
+
   const [value, setValue] = useState("");
+
   const handleValue = (e: ChangeEvent<HTMLInputElement>) => {
     setValue(e.target.value);
   };
@@ -21,11 +25,7 @@ export const Todo = () => {
       isDone: false,
       text: value,
     });
-    console.log({
-      id,
-      isDone: false,
-      text: value,
-    });
+
     setValue("");
   };
 
@@ -49,26 +49,57 @@ export const Todo = () => {
       </form>
       {/* Modal */}
       <div className={`${todoStyles["todo__modalTodos"]}`}>
-        {/* TODO Aqui va el for */}
-       
         {allTodos.map((todo) => {
-          return <SingleTodo isCompleted={todo.isDone} text={todo.text} />;
+          return (
+            <SingleTodo
+              isCompleted={todo.isDone}
+              text={todo.text}
+              todoId={todo.id}
+            />
+          );
         })}
-        <div className={`${todoStyles["todo__footerInfo"]}`}>
-          <div className={`${todoStyles["todo__footerInfo__totalItems"]}`}>
-            5 items left
+        {allTodos.length ? (
+          <div className={`${todoStyles["todo__footerInfo"]}`}>
+            <div className={`${todoStyles["todo__footerInfo__totalItems"]}`}>
+              {allTodos.length} items left
+            </div>
+            <div className={`${todoStyles["todo__footerInfo__text"]}`}>
+              clear completed
+            </div>
           </div>
-          <div className={`${todoStyles["todo__footerInfo__text"]}`}>
-            clear completed
-          </div>
-        </div>
+        ) : (
+          <></>
+        )}
       </div>
       <div className={`${todoStyles["todo__todosDetails"]}`}>
-        <div className={`${todoStyles["todo__todosDetails--item"]}`}>all</div>
-        <div className={`${todoStyles["todo__todosDetails--item"]}`}>
+        <div
+          className={`${todoStyles["todo__todosDetails--item"]} ${
+            activeStatus === "all"
+              ? todoStyles["todo__todosDetails--active"]
+              : ""
+          }`}
+          onClick={() => setStatus("all")}
+        >
+          all
+        </div>
+        <div
+          className={`${todoStyles["todo__todosDetails--item"]} ${
+            activeStatus === "active"
+              ? todoStyles["todo__todosDetails--active"]
+              : ""
+          }`}
+          onClick={() => setStatus("active")}
+        >
           active
         </div>
-        <div className={`${todoStyles["todo__todosDetails--item"]}`}>
+        <div
+          className={`${todoStyles["todo__todosDetails--item"]} ${
+            activeStatus === "completed"
+              ? todoStyles["todo__todosDetails--active"]
+              : ""
+          }`}
+          onClick={() => setStatus("completed")}
+        >
           completed
         </div>
       </div>
