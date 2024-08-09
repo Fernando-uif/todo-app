@@ -111,8 +111,20 @@
                 color: $selected-text;
             }
         }
+
         &--active {
-            color:$selected-text;
+            color: $selected-text;
         }
+    }
+
+    &__dragDropMessage {
+        font-size: 14px;
+        font-style: normal;
+        font-weight: 400;
+        letter-spacing: -0.194px;
+        line-height: normal;
+        margin-top: 40px;
+        text-align: center;
+        color: $secondary-text;
     }
 }

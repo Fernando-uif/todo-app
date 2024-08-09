@@ -6,8 +6,9 @@ import { useTodosStore } from "../../store/todos/todos-store";
 export const SingleTodo = ({ text, isCompleted, todoId }: SingleTodoProps) => {
   const removeTodo = useTodosStore((state) => state.removeTodo);
   const setComplete = useTodosStore((state) => state.setCompleteTodoToggle);
+
   return (
-    <div className={`${singleTodoStyle["singleTodo"]}`} draggable={true}>
+    <div className={`${singleTodoStyle["singleTodo"]}`}>
       <div className={`${singleTodoStyle["singleTodo__wrapperTask"]}`}>
         <Icon
           name={`${isCompleted ? "checkTodo" : "nullTodo"}`}

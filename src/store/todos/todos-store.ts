@@ -21,7 +21,7 @@ export const useTodosStore = create<TodoStore>()(
       },
       setTodo: (todo: Todo) => {
         const { todos } = get();
-        set({ todos: [...todos, todo] });
+        set({ todos: [todo, ...todos] });
       },
       setStatus: (status: "active" | "all" | "completed") => {
         set({ actualStatus: status });

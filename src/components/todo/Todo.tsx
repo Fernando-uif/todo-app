@@ -146,6 +146,9 @@ export const Todo = () => {
           completed
         </div>
       </div>
+      {/* <div className={`${todoStyles["todo__dragDropMessage"]}`}>
+        Drag and drop to reorder list
+      </div> */}
     </section>
   );
 };
