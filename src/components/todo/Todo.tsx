@@ -10,6 +10,14 @@ export const Todo = () => {
   const allTodos = useTodosStore((state) => state.getTodos());
   const setStatus = useTodosStore((state) => state.setStatus);
   const activeStatus = useTodosStore((state) => state.getStatus());
+  const notCompleteTodos = useTodosStore((state) =>
+    state.getNotCompleteTodos()
+  );
+  const completeTodos = useTodosStore((state) => state.getCompleteTodos());
+
+  const removeCompleteTodos = useTodosStore(
+    (state) => state.removeCompleteTodos
+  );
 
   const [value, setValue] = useState("");
 
@@ -49,21 +57,56 @@ export const Todo = () => {
       </form>
       {/* Modal */}
       <div className={`${todoStyles["todo__modalTodos"]}`}>
-        {allTodos.map((todo) => {
-          return (
-            <SingleTodo
-              isCompleted={todo.isDone}
-              text={todo.text}
-              todoId={todo.id}
-            />
-          );
-        })}
+        {activeStatus === "all" ? (
+          allTodos.map((todo) => {
+            return (
+              <SingleTodo
+                isCompleted={todo.isDone}
+                text={todo.text}
+                todoId={todo.id}
+              />
+            );
+          })
+        ) : activeStatus === "completed" ? (
+          completeTodos.map((todo) => {
+            return (
+              <SingleTodo
+                isCompleted={todo.isDone}
+                text={todo.text}
+                todoId={todo.id}
+              />
+            );
+          })
+        ) : activeStatus === "active" ? (
+          notCompleteTodos.map((todo) => {
+            return (
+              <SingleTodo
+                isCompleted={todo.isDone}
+                text={todo.text}
+                todoId={todo.id}
+              />
+            );
+          })
+        ) : (
+          <></>
+        )}
+
         {allTodos.length ? (
           <div className={`${todoStyles["todo__footerInfo"]}`}>
             <div className={`${todoStyles["todo__footerInfo__totalItems"]}`}>
-              {allTodos.length} items left
+              {activeStatus === "all"
+                ? allTodos.length
+                : activeStatus === "active"
+                ? notCompleteTodos.length
+                : activeStatus === "completed"
+                ? completeTodos.length
+                : ""}{" "}
+              items left
             </div>
-            <div className={`${todoStyles["todo__footerInfo__text"]}`}>
+            <div
+              className={`${todoStyles["todo__footerInfo__text"]}`}
+              onClick={() => removeCompleteTodos()}
+            >
               clear completed
             </div>
           </div>

@@ -54,6 +54,21 @@ export const useTodosStore = create<TodoStore>()(
 
         set({ todos: restTodos });
       },
+      removeCompleteTodos: () => {
+        const { todos } = get();
+        const restTodos = todos.filter((todo) => todo.isDone === false);
+        set({ todos: restTodos });
+      },
+      getCompleteTodos: () => {
+        const { todos } = get();
+        const restCompleteTodos = todos.filter((todo) => todo.isDone === true);
+        return restCompleteTodos;
+      },
+      getNotCompleteTodos: () => {
+        const { todos } = get();
+        const restCompleteTodos = todos.filter((todo) => todo.isDone === false);
+        return restCompleteTodos;
+      },
     }),
     {
       name: "todos",

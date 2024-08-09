@@ -8,6 +8,9 @@ export interface TodoStore {
   setStatus: (status: "active" | "all" | "completed") => void;
   removeTodo: (todoId: string) => void;
   setCompleteTodoToggle: (todoId: string) => void;
+  removeCompleteTodos: () => void;
+  getCompleteTodos: () => Todo[];
+  getNotCompleteTodos: () => Todo[];
 }
 
 export interface Todo {
