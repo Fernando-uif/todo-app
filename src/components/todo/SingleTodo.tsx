@@ -15,7 +15,13 @@ export const SingleTodo = ({ text, isCompleted, todoId }: SingleTodoProps) => {
           className={`${singleTodoStyle["singleTodo__icon__check"]}`}
           onClick={() => setComplete(todoId)}
         />
-        <span className={`${singleTodoStyle["singleTodo__text"]}`}>{text}</span>
+        <span
+          className={`${singleTodoStyle["singleTodo__text"]} ${
+            isCompleted ? singleTodoStyle["singleTodo--complete"] : ""
+          }`}
+        >
+          {text}
+        </span>
       </div>
       <Icon
         name="removeTodo"

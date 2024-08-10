@@ -50,7 +50,12 @@
         padding: 14px 14px 14px 52px;
         box-sizing: border-box;
 
-
+        color: $secondary-text;
+        font-size: 12px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: normal;
+        letter-spacing: -0.167px;
 
         &:focus {
             outline: none;
