@@ -71,7 +71,7 @@ export const useTodosStore = create<TodoStore>()(
       },
       moveTodo: (currentTodoId: string, setMoveTodoId: string) => {
         const todos = get().getTodos();
-
+        if (!currentTodoId || !setMoveTodoId) return;
         const currentTodoIndex = todos.indexOf(
           todos.find((todo) => todo.id === currentTodoId) || todos[0]
         );

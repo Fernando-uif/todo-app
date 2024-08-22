@@ -3,14 +3,30 @@
 .todo {
     padding: 40px 20px 0 20px;
 
+    @media screen and (min-width:834px) {
+        max-width: 541px;
+        margin: auto;
+    }
+
     &__wrapperTitle {
         display: flex;
         justify-content: space-between;
         margin-bottom: 40px;
+
+        @media screen and (min-width:834px) {
+            margin-bottom: 48px;
+        }
     }
 
     &__iconTheme {
         cursor: pointer;
+
+        @media screen and (min-width:834px) {
+            & svg {
+                width: 26px;
+                height: 26px;
+            }
+        }
     }
 
     &__title {
@@ -22,6 +38,17 @@
         line-height: normal;
         letter-spacing: 10px;
         display: block;
+
+        @media screen and (min-width:834px) {
+            font-size: 40px;
+            letter-spacing: 15px;
+        }
+
+        &--light {
+            color: $light;
+        }
+
+        &--dark {}
     }
 
     &__wrapperInput {
@@ -38,24 +65,37 @@
             outline: solid 1px #E3E4F1;
             left: 20px;
             top: 14px;
+
+            @media screen and (min-width:834px) {
+                left: 24px;
+                top: 20px;
+            }
         }
     }
 
     &__input {
         width: 100%;
         border: none;
-        padding: 0;
         height: 48px;
         border-radius: 5px;
         padding: 14px 14px 14px 52px;
         box-sizing: border-box;
 
-        color: $secondary-text;
+        color: $input-color;
         font-size: 12px;
         font-style: normal;
         font-weight: 400;
         line-height: normal;
         letter-spacing: -0.167px;
+
+        @media screen and (min-width:834px) {
+            font-size: 18px;
+            letter-spacing: -0.25px;
+            padding: 20px 0 20px 69px;
+            height: 64px;
+        }
+
+
 
         &:focus {
             outline: none;
@@ -84,7 +124,14 @@
         letter-spacing: -0.167px;
         color: $secondary-text;
 
-
+        @media screen and (min-width:834px) {
+            font-size: 14px;
+            font-style: normal;
+            font-weight: 400;
+            line-height: normal;
+            letter-spacing: -0.194px;
+            padding: 16px 24px;
+        }
 
         &__text {
             cursor: pointer;
@@ -103,6 +150,8 @@
         background-color: $light;
         border-radius: 5px;
 
+
+
         &--item {
             color: $secondary-text;
             font-size: 14px;
@@ -113,8 +162,10 @@
             cursor: pointer;
             text-transform: capitalize;
 
+            
+
             &:hover {
-                color: $selected-text;
+                color: $primary-text-light;
             }
         }
 

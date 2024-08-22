@@ -8,11 +8,19 @@
     align-items: center;
     border-bottom: 1px solid $separate-line;
 
+    @media screen and (min-width:834px) {
+        padding: 20px 24px;
+    }
+
     &__wrapperTask {
         display: flex;
         align-items: center;
         gap: 12px;
         user-select: none;
+
+        @media screen and (min-width:834px) {
+            gap: 24px;
+        }
     }
 
     &__icon {
@@ -25,6 +33,13 @@
 
         &__remove {
             cursor: pointer;
+
+            @media screen and (min-width:834px) {
+                & svg {
+                    width: 18px;
+                    height: 18px;
+                }
+            }
         }
     }
 
@@ -36,6 +51,11 @@
         line-height: normal;
         letter-spacing: -0.167px;
         user-select: none;
+
+        @media screen and (min-width:834px) {
+            font-size: 18px;
+            letter-spacing: -0.25px;
+        }
     }
 
     &--complete {
@@ -45,7 +65,13 @@
         font-weight: 400;
         line-height: normal;
         letter-spacing: -0.167px;
-    text-decoration: line-through;
+        text-decoration: line-through;
         user-select: none;
+
+        @media screen and (min-width:834px) {
+            font-size: 18px;
+            letter-spacing: -0.25px;
+
+        }
     }
 }
