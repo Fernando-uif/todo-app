@@ -11,6 +11,7 @@ export interface TodoStore {
   removeCompleteTodos: () => void;
   getCompleteTodos: () => Todo[];
   getNotCompleteTodos: () => Todo[];
+  moveTodo: (currentTodoId: string, setMoveTodoIs: string) => void;
 }
 
 export interface Todo {

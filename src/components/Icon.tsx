@@ -15,6 +15,8 @@ export const Icon = ({
       dangerouslySetInnerHTML={{ __html: icon }}
       className={className}
       onClick={onClick}
+      onDragStart={(event) => event.stopPropagation()}
+      draggable={false}
     />
   );
 };

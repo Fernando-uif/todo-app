@@ -84,11 +84,12 @@
         letter-spacing: -0.167px;
         color: $secondary-text;
 
-        &__totalItems {}
+
 
         &__text {
             cursor: pointer;
             text-transform: capitalize;
+            user-select: none;
         }
     }
 

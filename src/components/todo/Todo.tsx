@@ -1,4 +1,4 @@
-import { ChangeEvent, FormEvent, useState } from "react";
+import { ChangeEvent, FormEvent, useEffect, useRef, useState } from "react";
 import todoStyles from "../../sass/todo/todo.module.scss";
 import { Icon } from "../Icon";
 import { SingleTodo } from "./SingleTodo";
@@ -14,10 +14,12 @@ export const Todo = () => {
     state.getNotCompleteTodos()
   );
   const completeTodos = useTodosStore((state) => state.getCompleteTodos());
-
+  const moveTodo = useTodosStore((state) => state.moveTodo);
   const removeCompleteTodos = useTodosStore(
     (state) => state.removeCompleteTodos
   );
+
+  const container = useRef<HTMLDivElement>(null);
 
   const [value, setValue] = useState("");
 
@@ -36,6 +38,28 @@ export const Todo = () => {
 
     setValue("");
   };
+  useEffect(() => {
+    const handleDrop = (event: DragEvent) => {
+      event.preventDefault();
+      event.stopPropagation();
+
+      const targetId = (event.target as HTMLElement).id;
+      const todoId = event.dataTransfer?.getData("text/plain");
+
+      if (todoId && targetId) {
+        moveTodo(todoId, targetId);
+      }
+    };
+
+    const handleDragOver = (event: DragEvent) => {
+      event.preventDefault(); // Necesario para permitir el drop
+    };
+
+    if (container.current) {
+      container.current.addEventListener("drop", handleDrop);
+      container.current.addEventListener("dragover", handleDragOver);
+    }
+  }, [moveTodo]);
 
   return (
     <section className={`${todoStyles["todo"]}`}>
@@ -56,7 +80,7 @@ export const Todo = () => {
         />
       </form>
       {/* Modal */}
-      <div className={`${todoStyles["todo__modalTodos"]}`}>
+      <div className={`${todoStyles["todo__modalTodos"]}`} ref={container}>
         {activeStatus === "all" ? (
           allTodos.map((todo) => {
             return (
@@ -146,9 +170,9 @@ export const Todo = () => {
           completed
         </div>
       </div>
-      {/* <div className={`${todoStyles["todo__dragDropMessage"]}`}>
+      <div className={`${todoStyles["todo__dragDropMessage"]}`}>
         Drag and drop to reorder list
-      </div> */}
+      </div>
     </section>
   );
 };

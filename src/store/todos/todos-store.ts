@@ -69,6 +69,25 @@ export const useTodosStore = create<TodoStore>()(
         const restCompleteTodos = todos.filter((todo) => todo.isDone === false);
         return restCompleteTodos;
       },
+      moveTodo: (currentTodoId: string, setMoveTodoId: string) => {
+        const todos = get().getTodos();
+
+        const currentTodoIndex = todos.indexOf(
+          todos.find((todo) => todo.id === currentTodoId) || todos[0]
+        );
+        const setMoveTodoIndex = todos.indexOf(
+          todos.find((todo) => todo.id === setMoveTodoId) || todos[0]
+        );
+        const [todoToMove] = todos.splice(currentTodoIndex, 1);
+
+        const newPosition = setMoveTodoIndex + 1;
+
+        const safeNewPosition = Math.min(newPosition, todos.length);
+
+        todos.splice(safeNewPosition, 0, todoToMove);
+
+        set({ todos });
+      },
     }),
     {
       name: "todos",
