@@ -1,10 +1,17 @@
-:root{
-    --theme:#000;
+:root {
+    --theme: #000;
 }
-$light:#fff;
-$secondary-text:#9495A5;
-$separate-line:#E3E4F1;
-$selected-text:#3A7CFD;
-$complete-text:#D1D2DA;
-$primary-text-light:#494C6B;
-$input-color:#393A4B;
+
+$light: #fff;
+$secondary-text: #9495A5;
+$separate-line: #E3E4F1;
+$separate-line-dark: #393A4B;
+$selected-text: #3A7CFD;
+$complete-text: #D1D2DA;
+$primary-text-light: #494C6B;
+$input-color: #393A4B;
+$background-input-dark: #25273D;
+$background-input-text-dark: #767992;
+$complete-todo-text: #4D5067;
+$input-text-dark: #C8CBE7;
+$secondary-text-dark: #5B5E7E;

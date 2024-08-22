@@ -5,7 +5,10 @@ import { SingleTodo } from "./SingleTodo";
 
 import { useTodosStore } from "../../store/todos/todos-store";
 
-export const Todo = () => {
+import { Theme } from "../../interfaces/";
+import { useThemeStore } from "../../store/theme/theme-store";
+
+export const Todo = ({ theme }: { theme: Theme }) => {
   const setTodo = useTodosStore((state) => state.setTodo);
   const allTodos = useTodosStore((state) => state.getTodos());
   const setStatus = useTodosStore((state) => state.setStatus);
@@ -18,6 +21,7 @@ export const Todo = () => {
   const removeCompleteTodos = useTodosStore(
     (state) => state.removeCompleteTodos
   );
+  const toggleTheme = useThemeStore((state) => state.toggleTheme);
 
   const container = useRef<HTMLDivElement>(null);
 
@@ -60,27 +64,69 @@ export const Todo = () => {
       container.current.addEventListener("dragover", handleDragOver);
     }
   }, [moveTodo]);
+  useEffect(() => {
+    if (theme === "light") {
+      (
+        document.querySelector("body") || document.createElement("body")
+      ).style.backgroundColor = "#FAFAFA";
+      return;
+    }
+    (
+      document.querySelector("body") || document.createElement("body")
+    ).style.backgroundColor = "#171823";
+  }, [theme]);
+
+  const handleChangeBodyColor = () => {
+    if (theme === "light") {
+      (
+        document.querySelector("body") || document.createElement("body")
+      ).style.backgroundColor = "#171823";
+      return;
+    }
+
+    (
+      document.querySelector("body") || document.createElement("body")
+    ).style.backgroundColor = "#FAFAFA";
+  };
 
   return (
     <section className={`${todoStyles["todo"]}`}>
       <div className={`${todoStyles["todo__wrapperTitle"]}`}>
         <h1 className={`${todoStyles["todo__title"]}`}>todo</h1>
-        <Icon name={`moon`} className={`${todoStyles["todo__iconTheme"]}`} />
+        <Icon
+          name={`${theme === "light" ? "moon" : "sun"}`}
+          className={`${todoStyles["todo__iconTheme"]}`}
+          onClick={() => {
+            toggleTheme();
+            handleChangeBodyColor();
+          }}
+        />
       </div>
       <form
-        className={`${todoStyles["todo__wrapperInput"]}`}
+        className={`${todoStyles["todo__wrapperInput"]} ${
+          theme === "light"
+            ? todoStyles["todo__wrapperInput--light"]
+            : todoStyles["todo__wrapperInput--dark"]
+        }`}
         onSubmit={handleSumbit}
       >
         <input
           type="text"
-          className={`${todoStyles["todo__input"]}`}
+          className={`${todoStyles["todo__input"]} ${
+            theme === "dark" ? todoStyles["todo__input--dark"] : ""
+          }`}
           placeholder="Create a new todo..."
           onChange={handleValue}
           value={value}
         />
       </form>
       {/* Modal */}
-      <div className={`${todoStyles["todo__modalTodos"]}`} ref={container}>
+      <div
+        className={`${todoStyles["todo__modalTodos"]} ${
+          theme === "light" ? todoStyles["todo__modalTodos--light"] : ""
+        }`}
+        ref={container}
+      >
         {activeStatus === "all" ? (
           allTodos.map((todo) => {
             return (
@@ -88,6 +134,7 @@ export const Todo = () => {
                 isCompleted={todo.isDone}
                 text={todo.text}
                 todoId={todo.id}
+                theme={theme}
               />
             );
           })
@@ -98,6 +145,7 @@ export const Todo = () => {
                 isCompleted={todo.isDone}
                 text={todo.text}
                 todoId={todo.id}
+                theme={theme}
               />
             );
           })
@@ -108,6 +156,7 @@ export const Todo = () => {
                 isCompleted={todo.isDone}
                 text={todo.text}
                 todoId={todo.id}
+                theme={theme}
               />
             );
           })
@@ -116,8 +165,18 @@ export const Todo = () => {
         )}
 
         {allTodos.length ? (
-          <div className={`${todoStyles["todo__footerInfo"]}`}>
-            <div className={`${todoStyles["todo__footerInfo__totalItems"]}`}>
+          <div
+            className={`${todoStyles["todo__footerInfo"]} ${
+              theme === "dark" ? todoStyles["todo__footerInfo--dark"] : ""
+            }`}
+          >
+            <div
+              className={`${todoStyles["todo__footerInfo__text"]} ${
+                theme === "dark"
+                  ? todoStyles["todo__footerInfo__text--dark"]
+                  : todoStyles["todo__footerInfo__text--light"]
+              }`}
+            >
               {activeStatus === "all"
                 ? allTodos.length
                 : activeStatus === "active"
@@ -128,7 +187,65 @@ export const Todo = () => {
               items left
             </div>
             <div
-              className={`${todoStyles["todo__footerInfo__text"]}`}
+              className={`${todoStyles["todo__todosDetails"]} ${
+                todoStyles["todo__todosDetails--desktop"]
+              } ${
+                theme === "dark"
+                  ? todoStyles["todo__todosDetails--desktop--dark"]
+                  : ""
+              }`}
+            >
+              <div
+                className={`${todoStyles["todo__todosDetails--item"]} ${
+                  activeStatus === "all"
+                    ? todoStyles["todo__todosDetails--active"]
+                    : ""
+                } ${
+                  theme === "light"
+                    ? todoStyles["todo__todosDetails--item--light"]
+                    : todoStyles["todo__todosDetails--item--dark"]
+                }`}
+                onClick={() => setStatus("all")}
+              >
+                all
+              </div>
+              <div
+                className={`${todoStyles["todo__todosDetails--item"]} ${
+                  activeStatus === "active"
+                    ? todoStyles["todo__todosDetails--active"]
+                    : ""
+                }
+                ${
+                  theme === "light"
+                    ? todoStyles["todo__todosDetails--item--light"]
+                    : todoStyles["todo__todosDetails--item--dark"]
+                }
+                `}
+                onClick={() => setStatus("active")}
+              >
+                active
+              </div>
+              <div
+                className={`${todoStyles["todo__todosDetails--item"]} ${
+                  activeStatus === "completed"
+                    ? todoStyles["todo__todosDetails--active"]
+                    : ""
+                } ${
+                  theme === "light"
+                    ? todoStyles["todo__todosDetails--item--light"]
+                    : todoStyles["todo__todosDetails--item--dark"]
+                }`}
+                onClick={() => setStatus("completed")}
+              >
+                completed
+              </div>
+            </div>
+            <div
+              className={`${todoStyles["todo__footerInfo__text"]} ${
+                theme === "light"
+                  ? todoStyles["todo__footerInfo__text--light"]
+                  : todoStyles["todo__footerInfo__text--dark"]
+              }`}
               onClick={() => removeCompleteTodos()}
             >
               clear completed
@@ -138,39 +255,77 @@ export const Todo = () => {
           <></>
         )}
       </div>
-      <div className={`${todoStyles["todo__todosDetails"]}`}>
-        <div
-          className={`${todoStyles["todo__todosDetails--item"]} ${
-            activeStatus === "all"
-              ? todoStyles["todo__todosDetails--active"]
-              : ""
-          }`}
-          onClick={() => setStatus("all")}
-        >
-          all
-        </div>
-        <div
-          className={`${todoStyles["todo__todosDetails--item"]} ${
-            activeStatus === "active"
-              ? todoStyles["todo__todosDetails--active"]
-              : ""
-          }`}
-          onClick={() => setStatus("active")}
-        >
-          active
-        </div>
-        <div
-          className={`${todoStyles["todo__todosDetails--item"]} ${
-            activeStatus === "completed"
-              ? todoStyles["todo__todosDetails--active"]
-              : ""
-          }`}
-          onClick={() => setStatus("completed")}
-        >
-          completed
-        </div>
-      </div>
+
       {allTodos.length ? (
+        <div
+          className={`${todoStyles["todo__todosDetails"]} ${
+            todoStyles["todo__todosDetails--mobile"]
+          } 
+    ${theme === "dark" ? todoStyles["todo__todosDetails--mobile--dark"] : ""}
+    `}
+        >
+          <div
+            className={`${todoStyles["todo__todosDetails--item"]} ${
+              activeStatus === "all"
+                ? todoStyles["todo__todosDetails--active"]
+                : ""
+            }
+      ${
+        theme === "light"
+          ? todoStyles["todo__todosDetails--item--light"]
+          : todoStyles["todo__todosDetails--item--dark"]
+      }
+      `}
+            onClick={() => setStatus("all")}
+          >
+            all
+          </div>
+          <div
+            className={`${todoStyles["todo__todosDetails--item"]} ${
+              activeStatus === "active"
+                ? todoStyles["todo__todosDetails--active"]
+                : ""
+            }
+      ${
+        theme === "light"
+          ? todoStyles["todo__todosDetails--item--light"]
+          : todoStyles["todo__todosDetails--item--dark"]
+      }
+      `}
+            onClick={() => setStatus("active")}
+          >
+            active
+          </div>
+          <div
+            className={`${todoStyles["todo__todosDetails--item"]} ${
+              activeStatus === "completed"
+                ? todoStyles["todo__todosDetails--active"]
+                : ""
+            }
+      ${
+        theme === "light"
+          ? todoStyles["todo__todosDetails--item--light"]
+          : todoStyles["todo__todosDetails--item--dark"]
+      }
+      `}
+            onClick={() => setStatus("completed")}
+          >
+            completed
+          </div>
+        </div>
+      ) : (
+        <></>
+      )}
+
+      {activeStatus === "all" && allTodos.length >= 2 ? (
+        <div className={`${todoStyles["todo__dragDropMessage"]}`}>
+          Drag and drop to reorder list
+        </div>
+      ) : activeStatus === "active" && notCompleteTodos.length >= 2 ? (
+        <div className={`${todoStyles["todo__dragDropMessage"]}`}>
+          Drag and drop to reorder list
+        </div>
+      ) : activeStatus === "completed" && completeTodos.length >= 2 ? (
         <div className={`${todoStyles["todo__dragDropMessage"]}`}>
           Drag and drop to reorder list
         </div>

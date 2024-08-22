@@ -34,4 +34,7 @@ export const iconList: IconList = {
   removeTodo: `<svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 12 12" fill="none">
   <path fill-rule="evenodd" clip-rule="evenodd" d="M11.7851 0.471404L11.3137 0L5.89256 5.42115L0.471404 0L0 0.471404L5.42115 5.89256L0 11.3137L0.471404 11.7851L5.89256 6.36396L11.3137 11.7851L11.7851 11.3137L6.36396 5.89256L11.7851 0.471404Z" fill="#494C6B"/>
 </svg>`,
+  nullTodoDark: `<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
+  <circle cx="10" cy="10" r="9.5" stroke="#393A4B"/>
+</svg>`,
 };

@@ -38,6 +38,7 @@
         line-height: normal;
         letter-spacing: 10px;
         display: block;
+        user-select: none;
 
         @media screen and (min-width:834px) {
             font-size: 40px;
@@ -62,7 +63,6 @@
             height: 20px;
             border-radius: 50%;
             background-color: transparent;
-            outline: solid 1px #E3E4F1;
             left: 20px;
             top: 14px;
 
@@ -70,6 +70,16 @@
                 left: 24px;
                 top: 20px;
             }
+        }
+
+        &--light::after {
+            outline: solid 1px #E3E4F1;
+
+        }
+
+        &--dark::after {
+            outline: solid 1px #393A4B;
+
         }
     }
 
@@ -80,13 +90,23 @@
         border-radius: 5px;
         padding: 14px 14px 14px 52px;
         box-sizing: border-box;
+        user-select: none;
 
-        color: $input-color;
         font-size: 12px;
         font-style: normal;
         font-weight: 400;
         line-height: normal;
         letter-spacing: -0.167px;
+
+        &--light {
+
+            color: $input-color;
+        }
+
+        &--dark {
+            background-color: $background-input-dark;
+            color: $background-input-text-dark;
+        }
 
         @media screen and (min-width:834px) {
             font-size: 18px;
@@ -109,8 +129,13 @@
     &__modalTodos {
         width: 100%;
         background-color: $light;
-        box-shadow: 0px 35px 50px -15px rgba(194, 195, 214, 0.50);
         border-radius: 5px;
+
+        &--light {
+            box-shadow: 0px 35px 50px -15px rgba(194, 195, 214, 0.50);
+
+        }
+
     }
 
     &__footerInfo {
@@ -133,10 +158,34 @@
             padding: 16px 24px;
         }
 
+        &--dark {
+            background-color: $background-input-dark;
+        }
+
         &__text {
             cursor: pointer;
             text-transform: capitalize;
             user-select: none;
+            font-size: 12px;
+            font-style: normal;
+            font-weight: 400;
+            line-height: normal;
+            letter-spacing: -0.167px;
+
+
+            &--light {
+                color: $secondary-text;
+            }
+
+            &--dark {
+                color: $secondary-text-dark;
+
+            }
+
+            @media screen and (min-width:834px) {
+                font-size: 14px;
+                letter-spacing: -0.194px;
+            }
         }
     }
 
@@ -150,10 +199,7 @@
         background-color: $light;
         border-radius: 5px;
 
-
-
         &--item {
-            color: $secondary-text;
             font-size: 14px;
             font-style: normal;
             font-weight: 700;
@@ -162,15 +208,54 @@
             cursor: pointer;
             text-transform: capitalize;
 
-            
+            &--light {
+                color: $secondary-text;
 
-            &:hover {
-                color: $primary-text-light;
+                &:hover {
+                    color: $primary-text-light;
+                }
             }
+
+            &--dark {
+                color: $secondary-text-dark;
+
+                &:hover {
+                    color: $separate-line;
+                }
+            }
+
+
         }
 
         &--active {
             color: $selected-text;
+        }
+
+        &--desktop {
+            display: none;
+
+            &--dark {
+                background-color: transparent;
+            }
+
+            @media screen and (min-width:834px) {
+                display: flex;
+                margin: unset;
+                align-items: center;
+                padding: unset;
+            }
+        }
+
+        &--mobile {
+            &--dark {
+                background-color: #25273D;
+                box-shadow: unset;
+
+            }
+
+            @media screen and (min-width:834px) {
+                display: none;
+            }
         }
     }
 

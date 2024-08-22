@@ -6,7 +6,18 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    border-bottom: 1px solid $separate-line;
+
+
+
+    &--light {
+        border-bottom: 1px solid $separate-line;
+
+    }
+
+    &--dark {
+        background-color: $background-input-dark;
+        border-bottom: 1px solid $separate-line-dark;
+    }
 
     @media screen and (min-width:834px) {
         padding: 20px 24px;
@@ -40,11 +51,18 @@
                     height: 18px;
                 }
             }
+
+            &--dark {
+                & svg {
+                    fill: $primary-text-light;
+                }
+            }
+
         }
+
     }
 
     &__text {
-        color: $primary-text-light;
         font-size: 12px;
         font-style: normal;
         font-weight: 400;
@@ -56,10 +74,17 @@
             font-size: 18px;
             letter-spacing: -0.25px;
         }
+
+        &--light {
+            color: $primary-text-light;
+        }
+
+        &--dark {
+            color: $input-text-dark;
+        }
     }
 
     &--complete {
-        color: $complete-text;
         font-size: 12px;
         font-style: normal;
         font-weight: 400;
@@ -72,6 +97,15 @@
             font-size: 18px;
             letter-spacing: -0.25px;
 
+        }
+
+        &--light {
+            color: $complete-text;
+
+        }
+
+        &--dark {
+            color: $complete-todo-text;
         }
     }
 }

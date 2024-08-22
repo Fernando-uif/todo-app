@@ -3,25 +3,35 @@
 .header {
     height: 300px;
     background-repeat: no-repeat;
-    &--light{
-        
-    }
-    background-image:
-        linear-gradient(225deg, rgb(85, 150, 255, .7) 0%, rgb(172, 45, 235, .6) 100%),
-        url('/public/assets/background/mobile-light-image.jpg');
     background-size: cover;
+    
+    &--light {
 
-    @media screen and (min-width:834px) {
         background-image:
             linear-gradient(225deg, rgb(85, 150, 255, .7) 0%, rgb(172, 45, 235, .6) 100%),
-            url('/public/assets/background/tablet-light-image.jpg');
+            url('/assets/background/mobile-light-image.jpg');
+
+        @media screen and (min-width:834px) {
+            background-image:
+                linear-gradient(225deg, rgb(85, 150, 255, .7) 0%, rgb(172, 45, 235, .6) 100%),
+                url('/assets/background/tablet-light-image.jpg');
+
+        }
+
 
     }
 
-    @media screen and (min-width:1440px) {
+    &--dark {
         background-image:
-            linear-gradient(225deg, rgb(85, 150, 255, .7) 0%, rgb(172, 45, 235, .6) 100%),
-            url('/public/assets/background/desktop-light-image.jpg');
+            linear-gradient(135deg, rgb(55, 16, 189, .7) 0%, rgb(164, 35, 149, .6) 100%),
+            url('/assets/background/mobile-dark-image.jpg');
+
+        @media screen and (min-width:834px) {
+            background-image:
+                linear-gradient(135deg, rgb(55, 16, 189, .7) 0%, rgb(164, 35, 149, .6) 100%),
+                url('/assets/background/tablet-dark-image.jpg');
+
+        }
 
     }
 }
